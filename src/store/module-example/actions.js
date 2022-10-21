@@ -7,6 +7,7 @@ export function toFillStore () {
 export function toSearch ({ commit }, searchValue) {
   const array = JSON.parse(localStorage.getItem("array"))
   const sortedArr = quickSort(array)
+  console.log(sortedArr)
   commit('setSearchResult', binarySearch(sortedArr, searchValue))
 }
 
@@ -44,7 +45,9 @@ function binarySearch(array, item) {
   while (start <= end) {
     middle = Math.floor((start + end) / 2);
     if (array[middle].slice(0, item.length) === item) {
-        result.push(array[middle])
+      result.push(array[middle])
+      array.splice(middle, 1)
+      continue
     }
     if (item < array[middle].slice(0, item.length)) {
         end = middle - 1
